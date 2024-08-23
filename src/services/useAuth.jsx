@@ -2,10 +2,13 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { getMyInformation, login } from '../api/authApi';
 import authStore from './authStore';
 import { useLocation } from 'wouter';
+import { useEffect } from 'react';
 
 function useAuth() {
   const setToken = authStore(state => state.setToken);
   const authToken = authStore(state => state.authToken);
+  const setUser = authStore(state => state.setUser);
+
   const [, setLocation] = useLocation();
 
   const loginMutation = useMutation({
@@ -18,12 +21,23 @@ function useAuth() {
     },
   });
 
-  const { data: user, isLoading } = useQuery({
+  const {
+    data: user,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ['user'],
     queryFn: () => getMyInformation(authToken),
+    enabled: Boolean(authToken),
   });
 
-  return { loginMutation, user, isLoading };
+  useEffect(() => {
+    if (user && !isLoading && !isError) {
+      setUser(user.data);
+    }
+  }, [user, isLoading, setUser, isError]);
+
+  return { loginMutation, user, isLoading, authToken };
 }
 
 export default useAuth;

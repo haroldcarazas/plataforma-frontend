@@ -7,7 +7,7 @@ const authStore = create(set => ({
     localStorage.setItem('authToken', token);
     set({ authToken: token });
   },
-  updateUser: newUser => set({ user: newUser }),
+  setUser: newUser => set({ user: newUser }),
 }));
 
 export default authStore;
