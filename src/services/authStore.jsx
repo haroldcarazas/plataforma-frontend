@@ -1,9 +1,12 @@
 import { create } from 'zustand';
 
 const authStore = create(set => ({
+  authToken: localStorage.getItem('authToken') || null,
   user: null,
-  increasePopulation: () => set(state => ({ bears: state.bears + 1 })),
-  removeAllBears: () => set({ bears: 0 }),
+  setToken: token => {
+    localStorage.setItem('authToken', token);
+    set({ authToken: token });
+  },
   updateUser: newUser => set({ user: newUser }),
 }));
 
