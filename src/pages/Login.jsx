@@ -1,21 +1,7 @@
-import { useMutation } from '@tanstack/react-query';
-import { login } from '../api/authApi';
-import { useLocation } from 'wouter';
-import authStore from '../services/authStore';
+import useAuth from '../services/useAuth';
 
 function Login() {
-  const [, setLocation] = useLocation();
-  const setToken = authStore(state => state.setToken);
-
-  const loginMutation = useMutation({
-    mutationKey: ['login'],
-    mutationFn: login,
-    onError: error => alert(error.message),
-    onSuccess: data => {
-      setToken(data.token);
-      setLocation('/dashboard');
-    },
-  });
+  const { loginMutation } = useAuth();
 
   const handleSubmit = async e => {
     e.preventDefault();
