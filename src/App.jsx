@@ -3,6 +3,7 @@ import './App.css';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
+import MainLayout from './layouts/MainLayout';
 
 function App() {
   return (
@@ -10,7 +11,9 @@ function App() {
       <Switch>
         <Route path='/' component={Login} />
         <ProtectedRoute>
-          <Route path='/dashboard' component={Dashboard} />
+          <MainLayout>
+            <Route path='/dashboard' component={Dashboard} />
+          </MainLayout>
         </ProtectedRoute>
       </Switch>
     </>

@@ -20,18 +20,16 @@ function Dashboard() {
 
   return (
     <main>
-      <h1>Dashboard</h1>
-      <p>Nombre: {user.nombres}</p>
-      <p>Apellidos: {user.apellidos}</p>
-      <p>Correo: {user.email}</p>
-      <h2>Examenes</h2>
-      {examenes.map(e => (
-        <ExamenCard
-          key={e._id}
-          examenId={e._id}
-          calificacionMinima={e.calificacionMinima}
-        />
-      ))}
+      <h1 className='text-3xl text-center my-4'>Exámenes</h1>
+      <section className='max-w-[1000px] m-auto'>
+        {examenes.map(e => (
+          <ExamenCard
+            key={e._id}
+            examenId={e._id}
+            calificacionMinima={e.calificacionMinima}
+          />
+        ))}
+      </section>
     </main>
   );
 }
