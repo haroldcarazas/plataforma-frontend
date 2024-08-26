@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import MainLayout from './layouts/MainLayout';
+import Examen from './pages/Examen';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <ProtectedRoute>
           <MainLayout>
             <Route path='/dashboard' component={Dashboard} />
+            <Route path='/examenes/:id' component={Examen} />
           </MainLayout>
         </ProtectedRoute>
       </Switch>

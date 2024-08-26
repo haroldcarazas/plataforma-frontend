@@ -2,6 +2,7 @@ import authStore from '../services/authStore';
 
 function NavBar() {
   const user = authStore(state => state.user);
+  console.log(user);
   return (
     <nav className='w-full flex justify-end pe-6 py-4 gap-5 items-center text-2xl bg-blue-400'>
       <span>

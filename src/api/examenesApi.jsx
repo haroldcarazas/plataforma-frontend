@@ -6,3 +6,10 @@ export const getExamenesByCurso = async (cursoId, token) => {
   });
   return res.data;
 };
+
+export const getExamenById = async (examenId, token) => {
+  const res = await mainAPI.get(`/api/examenes/${examenId}`, {
+    headers: { Authorization: token },
+  });
+  return res.data;
+};
