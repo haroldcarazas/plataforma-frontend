@@ -34,15 +34,12 @@ function Examen() {
         }
 
         if (p.tipo === 'video') {
-          return <PreguntaVideo key={p._id} />;
+          return <PreguntaVideo key={p._id} enunciado={p.pregunta} />;
         }
       })}
 
       <div className='text-center'>
-        <button
-          type='submit'
-          className='bg-green-400 p-2 rounded-md text-white'
-        >
+        <button type='submit' className='bg-blue-400 p-2 rounded-md text-white'>
           Finalizar examen
         </button>
       </div>
