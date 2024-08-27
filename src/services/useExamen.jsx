@@ -4,6 +4,7 @@ import authStore from './authStore';
 
 function useExamen(id) {
   const authToken = authStore(state => state.authToken);
+
   const { data, isLoading } = useQuery({
     queryKey: ['examen'],
     queryFn: () => getExamenById(id, authToken),

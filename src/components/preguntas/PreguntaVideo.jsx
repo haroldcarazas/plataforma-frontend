@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef } from 'react';
 import { useReactMediaRecorder } from 'react-media-recorder';
+import authStore from '../../services/authStore';
 
 function PreguntaVideo({ enunciado }) {
   const videoRef = useRef(null);
+  const setVideoURL = authStore(state => state.setVideoURL);
   const {
     status,
     startRecording,
@@ -23,6 +25,12 @@ function PreguntaVideo({ enunciado }) {
       videoRef.current.srcObject = previewStream;
     }
   }, [previewStream]);
+
+  useEffect(() => {
+    if (mediaBlobUrl) {
+      setVideoURL(mediaBlobUrl);
+    }
+  }, [mediaBlobUrl, setVideoURL]);
 
   return (
     <div>
