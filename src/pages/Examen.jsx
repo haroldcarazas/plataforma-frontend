@@ -1,4 +1,4 @@
-import { useParams } from 'wouter';
+import { Link, useParams } from 'wouter';
 import useExamen from '../services/useExamen';
 import Simple from '../components/preguntas/Simple';
 import Multiple from '../components/preguntas/Multiple';
@@ -21,13 +21,9 @@ function Examen() {
     data.preguntas.forEach(p => {
       const inputPregunta = e.target[p._id];
 
-      if (p.tipo === 'video') {
-        return;
-      }
-
       respuestas.push({
         pregunta: p._id,
-        respuestaAlumno: inputPregunta.value,
+        respuestaAlumno: p.tipo === 'video' ? '' : inputPregunta.value,
       });
     });
 
@@ -43,39 +39,50 @@ function Examen() {
   };
 
   return (
-    <form
-      className='max-w-[1000px] m-auto flex flex-col gap-6 text-xl mt-5'
-      onSubmit={sendRespuesta}
-    >
-      {data.preguntas.map(p => {
-        if (p.tipo === 'simple') {
-          return (
-            <Simple key={p._id} enunciado={p.pregunta} nameInput={p._id} />
-          );
-        }
+    <main className='max-w-[1000px] m-auto mt-5'>
+      <Link
+        to='/dashboard'
+        className='text-xl font-medium bg-blue-300 px-3 py-2 rounded-md'
+      >
+        Regresar
+      </Link>
+      <form
+        className=' flex flex-col gap-6 text-xl mt-6'
+        onSubmit={sendRespuesta}
+      >
+        {data.preguntas.map(p => {
+          if (p.tipo === 'simple') {
+            return (
+              <Simple key={p._id} enunciado={p.pregunta} nameInput={p._id} />
+            );
+          }
 
-        if (p.tipo === 'multiple') {
-          return (
-            <Multiple
-              key={p._id}
-              enunciado={p.pregunta}
-              nameCheckbox={p._id}
-              opciones={p.opciones}
-            />
-          );
-        }
+          if (p.tipo === 'multiple') {
+            return (
+              <Multiple
+                key={p._id}
+                enunciado={p.pregunta}
+                nameCheckbox={p._id}
+                opciones={p.opciones}
+              />
+            );
+          }
 
-        if (p.tipo === 'video') {
-          return <PreguntaVideo key={p._id} enunciado={p.pregunta} />;
-        }
-      })}
+          if (p.tipo === 'video') {
+            return <PreguntaVideo key={p._id} enunciado={p.pregunta} />;
+          }
+        })}
 
-      <div className='text-center'>
-        <button type='submit' className='bg-blue-400 p-2 rounded-md text-white'>
-          Finalizar examen
-        </button>
-      </div>
-    </form>
+        <div className='text-center'>
+          <button
+            type='submit'
+            className='bg-blue-400 p-2 rounded-md text-white'
+          >
+            Finalizar examen
+          </button>
+        </div>
+      </form>
+    </main>
   );
 }
 

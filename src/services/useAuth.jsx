@@ -8,7 +8,6 @@ function useAuth() {
   const setToken = authStore(state => state.setToken);
   const authToken = authStore(state => state.authToken);
   const setUser = authStore(state => state.setUser);
-
   const [, setLocation] = useLocation();
 
   const loginMutation = useMutation({
@@ -24,6 +23,7 @@ function useAuth() {
   const {
     data: user,
     isLoading,
+    error,
     isError,
   } = useQuery({
     queryKey: ['user'],
@@ -31,13 +31,18 @@ function useAuth() {
     enabled: Boolean(authToken),
   });
 
+  const logoutUser = () => {
+    localStorage.removeItem('authToken');
+    window.location.href = '/';
+  };
+
   useEffect(() => {
     if (user && !isLoading && !isError) {
       setUser(user.data);
     }
   }, [user, isLoading, setUser, isError]);
 
-  return { loginMutation, user, isLoading, authToken };
+  return { loginMutation, user, isLoading, error, authToken, logoutUser };
 }
 
 export default useAuth;

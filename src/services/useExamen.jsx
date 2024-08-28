@@ -1,9 +1,11 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { getExamenById, sendRespuestaExamen } from '../api/examenesApi';
 import authStore from './authStore';
+import { useLocation } from 'wouter';
 
 function useExamen(id) {
   const authToken = authStore(state => state.authToken);
+  const [, setLocation] = useLocation();
 
   const { data, isLoading } = useQuery({
     queryKey: ['examen'],
@@ -15,7 +17,7 @@ function useExamen(id) {
     mutationFn: data => sendRespuestaExamen(data, authToken),
     onSuccess: res => {
       alert(res.message);
-      console.log(res);
+      setLocation('/dashboard');
     },
     onError: res => {
       alert('Error al enviar la respuesta');

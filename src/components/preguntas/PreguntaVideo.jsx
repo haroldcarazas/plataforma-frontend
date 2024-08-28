@@ -35,7 +35,6 @@ function PreguntaVideo({ enunciado }) {
   return (
     <div>
       <p className='font-bold mb-3'>{enunciado}</p>
-      <p>{status}</p>
       <div className='flex gap-4 justify-center mb-3'>
         {debeIniciar && (
           <button
