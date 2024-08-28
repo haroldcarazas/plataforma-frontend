@@ -7,13 +7,12 @@ import authStore from '../services/authStore';
 
 function Examen() {
   const { id } = useParams();
-  const { data, isLoading } = useExamen(id);
+  const { data, isLoading, examenMutation } = useExamen(id);
   const videoURL = authStore(state => state.videoURL);
 
   if (isLoading) {
     return <div>Cargando...</div>;
   }
-  console.log(data);
 
   const sendRespuesta = async e => {
     e.preventDefault();
@@ -37,8 +36,10 @@ function Examen() {
 
     const formData = new FormData();
     formData.append('examen', data._id);
-    formData.append('respuestas', respuestas);
-    formData.append('video', video, 'respuesta.webm');
+    formData.append('respuestas', JSON.stringify(respuestas));
+    formData.append('video', video, 'respuesta.mp4');
+
+    await examenMutation.mutateAsync(formData);
   };
 
   return (

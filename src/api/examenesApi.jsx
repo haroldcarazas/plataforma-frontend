@@ -13,3 +13,10 @@ export const getExamenById = async (examenId, token) => {
   });
   return res.data;
 };
+
+export const sendRespuestaExamen = async (data, token) => {
+  const res = await mainAPI.post('/api/respuestas', data, {
+    headers: { Authorization: token },
+  });
+  return res.data;
+};
