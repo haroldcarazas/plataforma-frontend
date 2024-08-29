@@ -1,4 +1,4 @@
-import { Route, Switch } from 'wouter';
+import { Route, Router } from 'wouter';
 import './App.css';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
@@ -9,7 +9,7 @@ import Examen from './pages/Examen';
 function App() {
   return (
     <>
-      <Switch>
+      <Router base='/plataforma-frontend'>
         <Route path='/' component={Login} />
         <ProtectedRoute>
           <MainLayout>
@@ -17,7 +17,7 @@ function App() {
             <Route path='/examenes/:id' component={Examen} />
           </MainLayout>
         </ProtectedRoute>
-      </Switch>
+      </Router>
     </>
   );
 }
